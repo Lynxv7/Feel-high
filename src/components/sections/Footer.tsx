@@ -12,14 +12,33 @@ export function Footer() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm">
-            <a href="https://soundcloud.com/feelhighmusic" target="_blank" rel="noreferrer" className="text-white/60 hover:text-white transition">
+            <a
+              href="https://soundcloud.com/feelhighmusic"
+              target="_blank"
+              rel="noreferrer"
+              className="text-white/60 hover:text-white transition"
+            >
               SoundCloud
             </a>
-            <a href="https://instagram.com/feelhighmusic" target="_blank" rel="noreferrer" className="text-white/60 hover:text-white transition">
+            <a
+              href="https://instagram.com/feelhighmusic"
+              target="_blank"
+              rel="noreferrer"
+              className="text-white/60 hover:text-white transition"
+            >
               Instagram
             </a>
-            <a href="#sound" className="text-white/60 hover:text-white transition">Sound</a>
-            <a href="#contact" className="text-white/60 hover:text-white transition">Bookings</a>
+            <a href="#sound" className="text-white/60 hover:text-white transition">
+              Sound
+            </a>
+            <a
+              href="https://linktr.ee/feelhighmusic"
+              target="_blank"
+              rel="noreferrer"
+              className="text-white/60 hover:text-white transition"
+            >
+              Bookings
+            </a>
           </div>
         </div>
         <div className="mt-20 flex flex-col sm:flex-row justify-between gap-3 text-overline">

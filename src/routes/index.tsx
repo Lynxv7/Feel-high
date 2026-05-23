@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PlayerProvider } from "@/components/player/PlayerProvider";
 import { GlobalPlayer } from "@/components/player/GlobalPlayer";
 import { ScrollSoundtrack } from "@/components/player/ScrollSoundtrack";
+import { AudioUnlockOverlay } from "@/components/player/AudioUnlockOverlay";
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { Sound } from "@/components/sections/Sound";
@@ -31,6 +32,7 @@ function Index() {
         <GlobalPlayer />
         <div className="h-32" aria-hidden />
       </main>
+      <AudioUnlockOverlay />
     </PlayerProvider>
   );
 }

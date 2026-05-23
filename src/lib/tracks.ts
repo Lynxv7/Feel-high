@@ -22,7 +22,7 @@ export const tracks = [
     publishedAt: "2026-05-22T02:22:52Z",
     durationMs: 479446,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/knocks`,
-    cover: "https://i1.sndcdn.com/artworks-fXT5yEzGqMOiQkCH-d7AyzQ-large.jpg",
+    cover: "https://i1.sndcdn.com/artworks-fXT5yEzGqMOiQkCH-d7AyzQ-t500x500.jpg",
   },
   {
     id: "myownstorm",
@@ -33,7 +33,7 @@ export const tracks = [
     publishedAt: "2026-05-22T02:18:43Z",
     durationMs: 263526,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/myownstorm`,
-    cover: "https://i1.sndcdn.com/artworks-A36kD4Eq8zIBAU0H-lsKBzA-large.png",
+    cover: "https://i1.sndcdn.com/artworks-A36kD4Eq8zIBAU0H-lsKBzA-t500x500.png",
   },
   {
     id: "negronigroove",
@@ -44,7 +44,7 @@ export const tracks = [
     publishedAt: "2026-05-22T02:14:01Z",
     durationMs: 479446,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/negronigroove`,
-    cover: "https://i1.sndcdn.com/artworks-AyGzLkzSui4rP2Rz-wZFdYg-large.png",
+    cover: "https://i1.sndcdn.com/artworks-AyGzLkzSui4rP2Rz-wZFdYg-t500x500.png",
   },
   {
     id: "shadows",
@@ -55,7 +55,7 @@ export const tracks = [
     publishedAt: "2026-05-22T02:08:59Z",
     durationMs: 232246,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/shadows`,
-    cover: "https://i1.sndcdn.com/artworks-a4q5am6uUHf3abKN-6zd3uA-large.png",
+    cover: "https://i1.sndcdn.com/artworks-a4q5am6uUHf3abKN-6zd3uA-t500x500.png",
   },
   {
     id: "speakeasy",
@@ -66,7 +66,7 @@ export const tracks = [
     publishedAt: "2026-05-22T02:05:47Z",
     durationMs: 344246,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/speakeasy`,
-    cover: "https://i1.sndcdn.com/artworks-PmybpERVRO9Jpbhz-oj3lSA-large.png",
+    cover: "https://i1.sndcdn.com/artworks-PmybpERVRO9Jpbhz-oj3lSA-t500x500.png",
   },
   {
     id: "superationofus",
@@ -77,7 +77,7 @@ export const tracks = [
     publishedAt: "2026-05-22T01:30:20Z",
     durationMs: 188326,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/superationofus`,
-    cover: "https://i1.sndcdn.com/artworks-ANK7WZw8pjkZiEwq-BsbaOQ-large.jpg",
+    cover: "https://i1.sndcdn.com/artworks-ANK7WZw8pjkZiEwq-BsbaOQ-t500x500.jpg",
   },
   {
     id: "descaso",
@@ -88,7 +88,7 @@ export const tracks = [
     publishedAt: "2026-05-22T01:19:56Z",
     durationMs: 160446,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/descaso`,
-    cover: "https://i1.sndcdn.com/artworks-cN3KDvvRyZDhijyJ-13wzTQ-large.jpg",
+    cover: "https://i1.sndcdn.com/artworks-cN3KDvvRyZDhijyJ-13wzTQ-t500x500.jpg",
   },
   {
     id: "feellingsunrise",
@@ -99,7 +99,7 @@ export const tracks = [
     publishedAt: "2026-05-22T01:18:02Z",
     durationMs: 178446,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/feellingsunrise`,
-    cover: "https://i1.sndcdn.com/artworks-fbZhMuz4AZzBNuPx-zlNf0w-large.png",
+    cover: "https://i1.sndcdn.com/artworks-fbZhMuz4AZzBNuPx-zlNf0w-t500x500.png",
   },
   {
     id: "chaofurioso",
@@ -110,7 +110,7 @@ export const tracks = [
     publishedAt: "2026-05-22T01:15:32Z",
     durationMs: 230046,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/chaofurioso`,
-    cover: "https://i1.sndcdn.com/artworks-8nzwMRVYBNCwItxH-lhb5Aw-large.png",
+    cover: "https://i1.sndcdn.com/artworks-8nzwMRVYBNCwItxH-lhb5Aw-t500x500.png",
   },
   {
     id: "feel-high-boss-groove",
@@ -121,7 +121,7 @@ export const tracks = [
     publishedAt: "2026-05-22T01:07:04Z",
     durationMs: 227286,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/feel-high-boss-groove`,
-    cover: "https://i1.sndcdn.com/artworks-rWbvEeljFRnGTaq8-FI0OTQ-large.jpg",
+    cover: "https://i1.sndcdn.com/artworks-rWbvEeljFRnGTaq8-FI0OTQ-t500x500.jpg",
   },
   {
     id: "westdream",
@@ -132,7 +132,7 @@ export const tracks = [
     publishedAt: "2026-05-22T01:03:04Z",
     durationMs: 153286,
     soundcloudUrl: `${SOUNDCLOUD_PROFILE_URL}/westdream`,
-    cover: "https://i1.sndcdn.com/artworks-UE8L6yVuV8SWLi09-NgYBTQ-large.jpg",
+    cover: "https://i1.sndcdn.com/artworks-UE8L6yVuV8SWLi09-NgYBTQ-t500x500.jpg",
   },
 ] as const satisfies readonly Track[];
 

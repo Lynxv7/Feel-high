@@ -36,6 +36,7 @@ type Ctx = {
   position: number; // ms
   volume: number; // 0..100
   hasUserInteracted: boolean;
+  requestStart: (forcePlay?: boolean) => void;
   play: (soundcloudUrl?: TrackUrl) => void;
   pause: () => void;
   toggle: (soundcloudUrl?: TrackUrl) => void;
@@ -47,9 +48,15 @@ type Ctx = {
 
 const PlayerCtx = createContext<Ctx | null>(null);
 const defaultTrack = tracks.find((track) => track.id === "myownstorm") ?? tracks[0];
+const defaultTrackIndex = Math.max(
+  0,
+  tracks.findIndex((track) => track.id === defaultTrack.id),
+);
 const initialSoundCloudUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(
   defaultTrack.soundcloudUrl,
 )}&auto_play=false`;
+const FADE_DURATION_MS = 3500;
+const SCROLL_THRESHOLD_PX = 0;
 
 export function usePlayer() {
   const ctx = useContext(PlayerCtx);
@@ -62,13 +69,76 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const widgetRef = useRef<SCWidget | null>(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [isReady, setIsReady] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(defaultTrackIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [position, setPosition] = useState(0);
-  const [volume, setVolumeState] = useState(80);
+  const [volume, setVolumeState] = useState(75);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const lastLoadedRef = useRef<string | null>(null);
+  const scrollFadeRafRef = useRef<number | null>(null);
+  const scrollStopTimeoutRef = useRef<number | null>(null);
+  const isScrollingRef = useRef(false);
+  const volumeRef = useRef(75);
+  const targetVolumeRef = useRef(75);
+  const touchStartYRef = useRef<number | null>(null);
+  const pendingStartRef = useRef(false);
+  const pendingTimeoutRef = useRef<number | null>(null);
+  const trackLoadedRef = useRef(false);
+  const isReadyRef = useRef(false);
+  const queuedStartRef = useRef(false);
+  const autoPlayNextRef = useRef(false);
+
+  const stopScrollFade = useCallback(() => {
+    if (scrollFadeRafRef.current !== null) {
+      window.cancelAnimationFrame(scrollFadeRafRef.current);
+      scrollFadeRafRef.current = null;
+    }
+  }, []);
+
+  const stopScrollActivity = useCallback(() => {
+    isScrollingRef.current = false;
+    if (scrollStopTimeoutRef.current !== null) {
+      window.clearTimeout(scrollStopTimeoutRef.current);
+      scrollStopTimeoutRef.current = null;
+    }
+  }, []);
+
+  const clearPendingTimeout = useCallback(() => {
+    if (pendingTimeoutRef.current !== null) {
+      window.clearTimeout(pendingTimeoutRef.current);
+      pendingTimeoutRef.current = null;
+    }
+  }, []);
+
+  const startScrollFade = useCallback(() => {
+    if (scrollFadeRafRef.current !== null) return;
+    let last = window.performance.now();
+
+    const step = (now: number) => {
+      const delta = now - last;
+      last = now;
+
+      if (isScrollingRef.current && isPlaying) {
+        const target = targetVolumeRef.current;
+        const rate = target / FADE_DURATION_MS;
+        const next = Math.min(target, volumeRef.current + rate * delta);
+        if (next !== volumeRef.current) {
+          volumeRef.current = next;
+          setVolumeState(next);
+          widgetRef.current?.setVolume(next);
+        }
+      }
+
+      if (isScrollingRef.current && volumeRef.current < targetVolumeRef.current) {
+        scrollFadeRafRef.current = window.requestAnimationFrame(step);
+      } else {
+        scrollFadeRafRef.current = null;
+      }
+    };
+
+    scrollFadeRafRef.current = window.requestAnimationFrame(step);
+  }, [isPlaying]);
 
   // Load SoundCloud Widget API script
   useEffect(() => {
@@ -94,12 +164,27 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     const E = SC.Widget.Events;
 
     w.bind(E.READY, () => {
+      isReadyRef.current = true;
       setIsReady(true);
-      w.setVolume(volume);
+      w.setVolume(0);
+      volumeRef.current = 0;
+      setVolumeState(0);
       // Start paused, never auto-play
       w.pause();
+      if (queuedStartRef.current) {
+        queuedStartRef.current = false;
+        startPlaybackFromInteraction(true);
+      }
     });
-    w.bind(E.PLAY, () => setIsPlaying(true));
+    w.bind(E.PLAY, () => {
+      setIsPlaying(true);
+      if (pendingStartRef.current) {
+        pendingStartRef.current = false;
+        clearPendingTimeout();
+        setHasUserInteracted(true);
+        // Volume sobe apenas enquanto houver scroll ativo.
+      }
+    });
     w.bind(E.PAUSE, () => setIsPlaying(false));
     w.bind(E.FINISH, () => {
       setIsPlaying(false);
@@ -122,8 +207,10 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     const t = tracks[currentIndex];
     if (lastLoadedRef.current === t.soundcloudUrl) return;
     lastLoadedRef.current = t.soundcloudUrl;
+    trackLoadedRef.current = false;
+    const shouldAutoPlay = autoPlayNextRef.current || pendingStartRef.current;
     w.load(t.soundcloudUrl, {
-      auto_play: false, // NEVER auto-play
+      auto_play: shouldAutoPlay,
       show_artwork: false,
       visual: false,
       hide_related: true,
@@ -132,37 +219,118 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       show_reposts: false,
       show_teaser: false,
       callback: () => {
+        trackLoadedRef.current = true;
         w.getDuration((d) => setDuration(d));
-        w.setVolume(volume);
+        const nextVolume = hasUserInteracted ? volumeRef.current : 0;
+        w.setVolume(nextVolume);
+        volumeRef.current = nextVolume;
+        setVolumeState(nextVolume);
+        if (autoPlayNextRef.current) {
+          autoPlayNextRef.current = false;
+        }
+        if (pendingStartRef.current) {
+          w.play();
+        }
       },
     });
-  }, [currentIndex, isReady, volume]);
+  }, [currentIndex, hasUserInteracted, isReady, volume]);
 
-  // Track user interaction: first scroll or click triggers playback
+  const startPlaybackFromInteraction = useCallback(
+    (forcePlay = false) => {
+      if (hasUserInteracted || pendingStartRef.current) return;
+      if (!isReadyRef.current) {
+        queuedStartRef.current = true;
+        return;
+      }
+
+      const w = widgetRef.current;
+      if (!w) return;
+
+      pendingStartRef.current = true;
+      clearPendingTimeout();
+      w.setVolume(0);
+      volumeRef.current = 0;
+      setVolumeState(0);
+
+      if (forcePlay || trackLoadedRef.current) {
+        w.play();
+      }
+
+      pendingTimeoutRef.current = window.setTimeout(() => {
+        pendingStartRef.current = false;
+      }, 1500);
+    },
+    [clearPendingTimeout, hasUserInteracted, isReady],
+  );
+
+  // Track user interaction: first downward scroll triggers playback
   useEffect(() => {
-    if (hasUserInteracted || !isReady) return;
+    if (!isReady) return;
 
-    const handleFirstInteraction = () => {
-      if (hasUserInteracted) return;
-      setHasUserInteracted(true);
-      // Play current track on first interaction
-      widgetRef.current?.play();
-      // Remove listeners after first interaction
-      window.removeEventListener("wheel", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("click", handleFirstInteraction);
+    const markScrolling = () => {
+      isScrollingRef.current = true;
+      if (scrollStopTimeoutRef.current !== null) {
+        window.clearTimeout(scrollStopTimeoutRef.current);
+      }
+      scrollStopTimeoutRef.current = window.setTimeout(() => {
+        stopScrollActivity();
+      }, 140);
+      startScrollFade();
     };
 
-    window.addEventListener("wheel", handleFirstInteraction, { passive: true });
-    window.addEventListener("touchstart", handleFirstInteraction, { passive: true });
-    window.addEventListener("click", handleFirstInteraction, { passive: true });
+    const stopListeners = () => {
+      window.removeEventListener("scroll", handleFirstScroll);
+      window.removeEventListener("wheel", handleFirstWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+
+    const handleFirstScroll = () => {
+      if (window.scrollY <= SCROLL_THRESHOLD_PX) return;
+      markScrolling();
+      startPlaybackFromInteraction();
+    };
+
+    const handleFirstWheel = (event: WheelEvent) => {
+      if (event.deltaY <= 0) return;
+      markScrolling();
+      startPlaybackFromInteraction();
+    };
+
+    const handleTouchStart = (event: TouchEvent) => {
+      touchStartYRef.current = event.touches[0]?.clientY ?? null;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const startY = touchStartYRef.current;
+      const currentY = event.touches[0]?.clientY ?? null;
+      if (startY === null || currentY === null) return;
+      if (currentY >= startY) return;
+      markScrolling();
+      startPlaybackFromInteraction();
+    };
+
+    const handlePointerDown = () => {
+      startPlaybackFromInteraction(true);
+    };
+
+    const handleKeyDown = () => {
+      startPlaybackFromInteraction(true);
+    };
+
+    window.addEventListener("scroll", handleFirstScroll, { passive: true });
+    window.addEventListener("wheel", handleFirstWheel, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("wheel", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("click", handleFirstInteraction);
+      stopListeners();
     };
-  }, [hasUserInteracted, isReady]);
+  }, [isReady, startPlaybackFromInteraction, startScrollFade, stopScrollActivity]);
 
   const play = useCallback(
     (soundcloudUrl?: TrackUrl) => {
@@ -171,6 +339,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         const idx = getTrackIndex(soundcloudUrl);
         if (idx < 0) return;
         if (idx !== currentIndex) {
+          autoPlayNextRef.current = true;
           setCurrentIndex(idx);
           return;
         }
@@ -189,6 +358,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         const idx = getTrackIndex(soundcloudUrl);
         if (idx < 0) return;
         if (idx !== currentIndex) {
+          autoPlayNextRef.current = true;
           setCurrentIndex(idx);
           return;
         }
@@ -201,11 +371,13 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
 
   const next = useCallback(() => {
     setHasUserInteracted(true);
+    autoPlayNextRef.current = true;
     setCurrentIndex((i) => (i + 1) % tracks.length);
   }, []);
 
   const prev = useCallback(() => {
     setHasUserInteracted(true);
+    autoPlayNextRef.current = true;
     setCurrentIndex((i) => (i <= 0 ? tracks.length - 1 : i - 1));
   }, []);
 
@@ -220,11 +392,17 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     [duration],
   );
 
-  const setVolume = useCallback((v: number) => {
-    const clamped = Math.max(0, Math.min(100, v));
-    setVolumeState(clamped);
-    widgetRef.current?.setVolume(clamped);
-  }, []);
+  const setVolume = useCallback(
+    (v: number) => {
+      const clamped = Math.max(0, Math.min(100, v));
+      targetVolumeRef.current = clamped;
+      volumeRef.current = clamped;
+      setVolumeState(clamped);
+      stopScrollFade();
+      widgetRef.current?.setVolume(clamped);
+    },
+    [stopScrollFade],
+  );
 
   const value = useMemo<Ctx>(
     () => ({
@@ -237,6 +415,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       position,
       volume,
       hasUserInteracted,
+      requestStart: startPlaybackFromInteraction,
       play,
       pause,
       toggle,
@@ -253,6 +432,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       position,
       volume,
       hasUserInteracted,
+      startPlaybackFromInteraction,
       play,
       pause,
       toggle,

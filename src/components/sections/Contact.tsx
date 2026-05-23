@@ -2,8 +2,12 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 
 const channels = [
-  { label: "Bookings", value: "bookings@feelhigh.music", href: "mailto:bookings@feelhigh.music" },
-  { label: "Collabs & Press", value: "hello@feelhigh.music", href: "mailto:hello@feelhigh.music" },
+  { label: "Bookings", value: "Feel High Music", href: "https://linktr.ee/feelhighmusic" },
+  {
+    label: "Collabs & Press",
+    value: "feelhighoficial@gmail.com",
+    href: "mailto:feelhighoficial@gmail.com",
+  },
   { label: "Instagram", value: "@feelhighmusic", href: "https://instagram.com/feelhighmusic" },
 ];
 
