@@ -17,14 +17,16 @@ export function Sound() {
           className="flex items-end justify-between flex-wrap gap-6 mb-16"
         >
           <div>
-            <span className="text-overline">01 / Sound</span>
-            <h2 className="text-display text-5xl sm:text-7xl mt-4">
-              The <span className="italic text-[var(--color-ember-soft)]">collection</span>.
-            </h2>
+            <span className="text-overline" data-i18n="sound.overline">
+              01 / Som
+            </span>
+            <h2 className="text-display text-5xl sm:text-7xl mt-4">The collection.</h2>
           </div>
           <p className="max-w-sm text-sm text-white/50 leading-relaxed">
-            Official releases streamed directly through SoundCloud. Tap any track and the global
-            player follows the catalog.
+            <span data-i18n="sound.body">
+              Lancamentos oficiais transmitidos direto do SoundCloud. Toque qualquer faixa e o
+              player global acompanha o catalogo.
+            </span>
           </p>
         </motion.div>
 

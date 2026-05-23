@@ -23,14 +23,18 @@ export function Hero() {
         <div className="absolute inset-0 bg-glow-ember opacity-70" />
       </motion.div>
 
-      <motion.div style={{ opacity, y: titleY }} className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center">
+      <motion.div
+        style={{ opacity, y: titleY }}
+        className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center"
+      >
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
           className="text-overline mb-8"
+          data-i18n="hero.tagline"
         >
-          A Sound Project · Worldwide
+          Um projeto sonoro · Mundial
         </motion.span>
 
         <motion.h1
@@ -49,8 +53,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.2 }}
           className="mt-10 max-w-md text-sm sm:text-base text-white/60 leading-relaxed"
+          data-i18n="hero.subtitle"
         >
-          Music for sunsets, dancefloors and moments that stay with you.
+          Musica para pores do sol, pistas de danca e momentos que ficam com voce.
         </motion.p>
 
         <motion.a
@@ -60,7 +65,7 @@ export function Hero() {
           transition={{ delay: 1.6, duration: 1 }}
           className="absolute bottom-10 inset-x-0 mx-auto w-fit text-overline flex flex-col items-center gap-3 text-white/40"
         >
-          <span>Scroll</span>
+          <span data-i18n="hero.scroll">Role</span>
           <motion.span
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

@@ -42,7 +42,11 @@ export function AudioUnlockOverlay() {
         className="group relative overflow-hidden rounded-full border border-[var(--color-ember)]/60 bg-[oklch(0.18_0.03_45/0.7)] px-6 py-3 text-sm uppercase tracking-[0.32em] text-[var(--color-ember)] transition hover:border-[var(--color-ember)]"
         aria-label="Ativar som"
       >
-        <span className={`relative z-10 ${revealText ? "opacity-100" : "opacity-0"}`}>
+        <span
+          className={`relative z-10 ${revealText ? "opacity-100" : "opacity-0"}`}
+          data-i18n="overlay.cta"
+          data-i18n-letters="true"
+        >
           {label.split("").map((char, index) => (
             <span
               key={`${char}-${index}`}

@@ -7,7 +7,10 @@ export function Footer() {
             <h3 className="text-display text-6xl sm:text-8xl leading-none">
               FEEL <span className="text-[var(--color-ember)]">HIGH</span>
             </h3>
-            <p className="mt-6 text-sm text-white/40 max-w-sm leading-relaxed">
+            <p
+              className="mt-6 text-sm text-white/40 max-w-sm leading-relaxed"
+              data-i18n="footer.genre"
+            >
               Tech House · Melodic · Afro · Organic · Techno · House · Bass · Brazilian Soul.
             </p>
           </div>
@@ -17,6 +20,7 @@ export function Footer() {
               target="_blank"
               rel="noreferrer"
               className="text-white/60 hover:text-white transition"
+              data-i18n="nav.soundcloud"
             >
               SoundCloud
             </a>
@@ -28,22 +32,27 @@ export function Footer() {
             >
               Instagram
             </a>
-            <a href="#sound" className="text-white/60 hover:text-white transition">
-              Sound
+            <a
+              href="#sound"
+              className="text-white/60 hover:text-white transition"
+              data-i18n="footer.sound"
+            >
+              Som
             </a>
             <a
               href="https://linktr.ee/feelhighmusic"
               target="_blank"
               rel="noreferrer"
               className="text-white/60 hover:text-white transition"
+              data-i18n="footer.bookings"
             >
-              Bookings
+              Contratacoes
             </a>
           </div>
         </div>
         <div className="mt-20 flex flex-col sm:flex-row justify-between gap-3 text-overline">
-          <span>© {new Date().getFullYear()} FEEL HIGH</span>
-          <span>Drive by feelings · Worldwide</span>
+          <span data-i18n="footer.rights">© {new Date().getFullYear()} FEEL HIGH</span>
+          <span data-i18n="footer.tagline">Guiado por sentimentos · Mundial</span>
         </div>
       </div>
     </footer>

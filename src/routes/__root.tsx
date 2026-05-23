@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
 import {
   Outlet,
   Link,
@@ -9,6 +10,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { initI18n } from "@/lib/i18n";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 
 function NotFoundComponent() {
   return (
@@ -81,12 +84,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "FEEL HIGH" },
       { name: "theme-color", content: "#0a0706" },
       { property: "og:title", content: "FEEL HIGH — Music for sunsets and dancefloors" },
-      { property: "og:description", content: "Feel High Echoes is an immersive, cinematic audiovisual website for the FEEL HIGH music project." },
+      {
+        property: "og:description",
+        content:
+          "Feel High Echoes is an immersive, cinematic audiovisual website for the FEEL HIGH music project.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "FEEL HIGH — Music for sunsets and dancefloors" },
-      { name: "description", content: "Feel High Echoes is an immersive, cinematic audiovisual website for the FEEL HIGH music project." },
-      { name: "twitter:description", content: "Feel High Echoes is an immersive, cinematic audiovisual website for the FEEL HIGH music project." },
+      {
+        name: "description",
+        content:
+          "Feel High Echoes is an immersive, cinematic audiovisual website for the FEEL HIGH music project.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Feel High Echoes is an immersive, cinematic audiovisual website for the FEEL HIGH music project.",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -106,7 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>
@@ -121,9 +136,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    initI18n();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <LanguageToggle />
     </QueryClientProvider>
   );
 }

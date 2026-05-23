@@ -1,11 +1,11 @@
 import { motion } from "motion/react";
 
 const links = [
-  { href: "#sound", label: "Sound" },
-  { href: "#atmosphere", label: "Atmosphere" },
-  { href: "#live", label: "Live" },
-  { href: "#process", label: "Process" },
-  { href: "#contact", label: "Contact" },
+  { href: "#sound", label: "Som", key: "nav.sound" },
+  { href: "#atmosphere", label: "Atmosfera", key: "nav.atmosphere" },
+  { href: "#live", label: "Ao vivo", key: "nav.live" },
+  { href: "#process", label: "Processo", key: "nav.process" },
+  { href: "#contact", label: "Contato", key: "nav.contact" },
 ];
 
 export function Nav() {
@@ -22,7 +22,12 @@ export function Nav() {
         </a>
         <nav className="hidden md:flex items-center gap-8 text-overline">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-foreground/90 text-white/50 transition">
+            <a
+              key={l.href}
+              href={l.href}
+              className="hover:text-foreground/90 text-white/50 transition"
+              data-i18n={l.key}
+            >
               {l.label}
             </a>
           ))}
@@ -32,6 +37,7 @@ export function Nav() {
           target="_blank"
           rel="noreferrer"
           className="text-overline px-3 py-2 rounded-full border border-white/15 hover:border-white/40 hover:bg-white/5 transition"
+          data-i18n="nav.soundcloud"
         >
           SoundCloud
         </a>
