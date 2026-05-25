@@ -16,7 +16,9 @@ export function Live() {
             transition={{ duration: 1 }}
             className="lg:col-span-7"
           >
-            <span className="text-overline">03 / Releases</span>
+            <span className="text-overline" data-i18n="live.overline">
+              03 / Releases
+            </span>
             <h2 className="text-display text-5xl sm:text-7xl mt-4">
               Built for <span className="italic text-[var(--color-ember-soft)]">presence</span>.
             </h2>
@@ -27,6 +29,7 @@ export function Live() {
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.2 }}
             className="lg:col-span-5 text-sm text-white/50 leading-relaxed"
+            data-i18n="live.description"
           >
             Recent official SoundCloud uploads from the FEEL HIGH catalog.
           </motion.p>

@@ -22,6 +22,7 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
           className="text-overline"
+          data-i18n="contact.overline"
         >
           05 / Contact
         </motion.span>

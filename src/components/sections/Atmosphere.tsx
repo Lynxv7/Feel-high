@@ -27,9 +27,12 @@ export function Atmosphere() {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          <span className="text-overline">02 / Atmosphere</span>
+          <span className="text-overline" data-i18n="atmosphere.overline">
+            02 / Atmosphere
+          </span>
           <h2 className="text-display text-5xl sm:text-7xl mt-4 max-w-3xl">
-            A visual diary of <span className="italic text-[var(--color-ember-soft)]">light, dust and bodies</span>.
+            Where groove, atmosphere and movement{" "}
+            <span className="italic text-[var(--color-ember-soft)]">become one.</span>.
           </h2>
         </motion.div>
       </div>
