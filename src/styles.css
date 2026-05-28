@@ -161,3 +161,34 @@
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+/* Atmosphere auto-scroll */
+.auto-scroll {
+  position: relative;
+}
+
+.auto-scroll-track {
+  display: flex;
+  width: max-content;
+  animation: auto-scroll-x 90s linear infinite;
+}
+
+.auto-scroll:hover .auto-scroll-track,
+.auto-scroll:focus-within .auto-scroll-track {
+  animation-play-state: paused;
+}
+
+@keyframes auto-scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auto-scroll-track {
+    animation: none;
+  }
+}
