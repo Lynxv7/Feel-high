@@ -7,6 +7,7 @@ export function AudioUnlockOverlay() {
   const [isVisible, setIsVisible] = useState(true);
   const [revealText, setRevealText] = useState(false);
   const dismissTimeoutRef = useRef<number | null>(null);
+  const scrollLockRef = useRef<{ htmlOverflow: string; bodyOverflow: string } | null>(null);
   const label = "Entre no Universo!";
 
   useEffect(() => {
@@ -25,6 +26,59 @@ export function AudioUnlockOverlay() {
     }, 500);
   }, [p.hasUserInteracted]);
 
+  useEffect(() => {
+    if (!isVisible || p.hasUserInteracted) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+    scrollLockRef.current = {
+      htmlOverflow: html.style.overflow,
+      bodyOverflow: body.style.overflow,
+    };
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    const prevent = (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    const preventKeyScroll = (event: KeyboardEvent) => {
+      const blockedKeys = [
+        "ArrowUp",
+        "ArrowDown",
+        "PageUp",
+        "PageDown",
+        "Home",
+        "End",
+        " ",
+        "Spacebar",
+      ];
+      if (blockedKeys.includes(event.key)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+
+    window.addEventListener("wheel", prevent, { passive: false, capture: true });
+    window.addEventListener("touchmove", prevent, { passive: false, capture: true });
+    window.addEventListener("scroll", prevent, { passive: false, capture: true });
+    window.addEventListener("keydown", preventKeyScroll, { capture: true });
+
+    return () => {
+      window.removeEventListener("wheel", prevent, true);
+      window.removeEventListener("touchmove", prevent, true);
+      window.removeEventListener("scroll", prevent, true);
+      window.removeEventListener("keydown", preventKeyScroll, true);
+      const prev = scrollLockRef.current;
+      if (prev) {
+        html.style.overflow = prev.htmlOverflow;
+        body.style.overflow = prev.bodyOverflow;
+      }
+      scrollLockRef.current = null;
+    };
+  }, [isVisible, p.hasUserInteracted]);
+
   if (!isVisible) return null;
 
   return (
@@ -32,6 +86,7 @@ export function AudioUnlockOverlay() {
       className={`fixed inset-0 z-[60] grid place-items-center bg-black/70 backdrop-blur-sm transition-[opacity,backdrop-filter] duration-500 ${
         isDismissing ? "opacity-0 backdrop-blur-0" : "opacity-100"
       }`}
+      onPointerDown={(event) => event.stopPropagation()}
     >
       <button
         type="button"

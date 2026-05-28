@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import img1 from "@/assets/dj-purple.jpg";
 import img2 from "@/assets/dj-wedding.jpg";
@@ -18,6 +19,73 @@ const shots = [
 ];
 
 export function Atmosphere() {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const scroller = scrollRef.current;
+    if (!scroller) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let rafId: number | null = null;
+    let last = window.performance.now();
+    let stopped = false;
+    let paused = false;
+
+    const stop = () => {
+      stopped = true;
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+
+    const step = (now: number) => {
+      if (stopped) return;
+      const delta = now - last;
+      last = now;
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      if (max <= 0) return;
+      if (!paused) {
+        const next = Math.min(max, scroller.scrollLeft + delta * 0.02);
+        scroller.scrollLeft = next;
+      }
+      const nextPosition = scroller.scrollLeft;
+      if (nextPosition < max) {
+        rafId = window.requestAnimationFrame(step);
+      }
+    };
+
+    const handleMouseEnter = () => {
+      paused = true;
+    };
+
+    const handleMouseLeave = () => {
+      paused = false;
+      last = window.performance.now();
+      if (rafId === null && !stopped) {
+        rafId = window.requestAnimationFrame(step);
+      }
+    };
+
+    const stopEvents: Array<keyof WindowEventMap> = [
+      "wheel",
+      "touchstart",
+      "pointerdown",
+      "keydown",
+    ];
+    stopEvents.forEach((eventName) => window.addEventListener(eventName, stop, { once: true }));
+    scroller.addEventListener("mouseenter", handleMouseEnter);
+    scroller.addEventListener("mouseleave", handleMouseLeave);
+    rafId = window.requestAnimationFrame(step);
+
+    return () => {
+      stopEvents.forEach((eventName) => window.removeEventListener(eventName, stop));
+      scroller.removeEventListener("mouseenter", handleMouseEnter);
+      scroller.removeEventListener("mouseleave", handleMouseLeave);
+      stop();
+    };
+  }, []);
+
   return (
     <section id="atmosphere" className="relative py-32 sm:py-40 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-10 mb-16">
@@ -37,7 +105,7 @@ export function Atmosphere() {
         </motion.div>
       </div>
 
-      <div className="overflow-x-auto no-scrollbar">
+      <div ref={scrollRef} className="overflow-x-auto no-scrollbar">
         <div className="flex gap-5 sm:gap-7 px-6 sm:px-10 pb-4 w-max">
           {shots.map((s, i) => (
             <motion.figure
