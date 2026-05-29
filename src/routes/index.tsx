@@ -5,10 +5,11 @@ import { ScrollSoundtrack } from "@/components/player/ScrollSoundtrack";
 import { AudioUnlockOverlay } from "@/components/player/AudioUnlockOverlay";
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
+import { Artist } from "@/components/sections/Artist";
 import { Sound } from "@/components/sections/Sound";
 import { Atmosphere } from "@/components/sections/Atmosphere";
-import { Live } from "@/components/sections/Live";
 import { Process } from "@/components/sections/Process";
+import { Live } from "@/components/sections/Live";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 
@@ -22,10 +23,11 @@ function Index() {
       <main className="grain relative min-h-screen bg-background text-foreground overflow-x-hidden">
         <Nav />
         <Hero />
+        <Artist />
         <Sound />
         <Atmosphere />
-        <Live />
         <Process />
+        <Live />
         <Contact />
         <Footer />
         <ScrollSoundtrack />

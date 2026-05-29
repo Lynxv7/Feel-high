@@ -1,10 +1,11 @@
 import { motion } from "motion/react";
 
 const links = [
-  { href: "#sound", label: "Som", key: "nav.sound" },
+  { href: "#artist", label: "Artista", key: "nav.artist" },
+  { href: "#sound", label: "Discografia", key: "nav.sound" },
   { href: "#atmosphere", label: "Atmosfera", key: "nav.atmosphere" },
-  { href: "#live", label: "Ao vivo", key: "nav.live" },
   { href: "#process", label: "Processo", key: "nav.process" },
+  { href: "#live", label: "Live Experience", key: "nav.live" },
   { href: "#contact", label: "Contato", key: "nav.contact" },
 ];
 
@@ -18,9 +19,9 @@ export function Nav() {
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-10 py-5 flex items-center justify-between">
         <a href="#top" className="font-display text-xl tracking-tight">
-          FEEL <span className="text-[var(--color-ember)]">HIGH</span>
+          FEEL <span className="text-(--color-ember)">HIGH</span>
         </a>
-        <nav className="hidden md:flex items-center gap-8 text-overline">
+        <nav className="hidden md:flex items-center gap-6 text-overline">
           {links.map((l) => (
             <a
               key={l.href}

@@ -7,30 +7,34 @@ import { getTrackSubtitle } from "@/lib/tracks";
 export function Sound() {
   const p = usePlayer();
   return (
-    <section id="sound" className="relative py-32 sm:py-40 px-6 sm:px-10">
+    <section id="sound" className="relative px-6 py-28 sm:px-10 sm:py-36">
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[oklch(0.1_0.018_40)] to-transparent pointer-events-none" />
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1 }}
-          className="flex items-end justify-between flex-wrap gap-6 mb-16"
+          className="flex flex-wrap items-end justify-between gap-8 mb-16"
         >
           <div>
             <span className="text-overline" data-i18n="sound.overline">
-              01 / Som
+              02 / Discografia
             </span>
-            <h2 className="text-display text-5xl sm:text-7xl mt-4">The collection.</h2>
+            <h2 className="text-display text-6xl sm:text-8xl mt-4">
+              Discografia
+              <span className="italic text-[var(--color-ember-soft)]">.</span>
+            </h2>
           </div>
-          <p className="max-w-sm text-sm text-white/50 leading-relaxed">
+          <p className="max-w-md text-sm leading-7 text-white/50">
             <span data-i18n="sound.body">
-              Lancamentos oficiais transmitidos direto do SoundCloud. Toque qualquer faixa e o
-              player global acompanha o catalogo.
+              A identidade vira som: faixas oficiais transmitidas direto do SoundCloud, organizadas
+              como uma entrada no universo musical do FEEL HIGH.
             </span>
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {p.tracks.map((t, i) => {
             const isCurrent = p.currentTrack?.id === t.id;
             const isPlaying = isCurrent && p.isPlaying;
@@ -38,7 +42,7 @@ export function Sound() {
               <motion.button
                 key={t.id}
                 type="button"
-                onClick={() => p.toggle(t.soundcloudUrl)}
+                onClick={() => p.toggle(t.soundcloudUrl as Parameters<typeof p.toggle>[0])}
                 initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-80px" }}

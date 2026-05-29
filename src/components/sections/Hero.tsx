@@ -11,7 +11,7 @@ export function Hero() {
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   return (
-    <section ref={ref} id="top" className="relative min-h-[100svh] overflow-hidden">
+    <section ref={ref} id="top" className="relative min-h-svh overflow-hidden">
       {/* Background image with parallax */}
       <motion.div style={{ y, scale }} className="absolute inset-0">
         <img
@@ -19,13 +19,13 @@ export function Hero() {
           alt="FEEL HIGH"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-background" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/30 to-background" />
         <div className="absolute inset-0 bg-glow-ember opacity-70" />
       </motion.div>
 
       <motion.div
         style={{ opacity, y: titleY }}
-        className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center"
+        className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 text-center"
       >
         <motion.span
           initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ export function Hero() {
         >
           FEEL
           <br />
-          <span className="italic text-[var(--color-ember-soft)]">High</span>
+          <span className="italic text-(--color-ember-soft)">High</span>
         </motion.h1>
 
         <motion.p
@@ -55,7 +55,7 @@ export function Hero() {
           className="mt-10 max-w-md text-sm sm:text-base text-white/60 leading-relaxed"
           data-i18n="hero.subtitle"
         >
-          Musica para pores do sol, pistas de danca e momentos que ficam com voce.
+          Música para pores do sol, pistas de dança e momentos que ficam com você.
         </motion.p>
 
         <motion.a
@@ -69,7 +69,7 @@ export function Hero() {
           <motion.span
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="block h-8 w-px bg-gradient-to-b from-white/40 to-transparent"
+            className="block h-8 w-px bg-linear-to-b from-white/40 to-transparent"
           />
         </motion.a>
       </motion.div>

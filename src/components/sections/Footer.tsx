@@ -46,7 +46,7 @@ export function Footer() {
               className="text-white/60 hover:text-white transition"
               data-i18n="footer.bookings"
             >
-              Contratacoes
+              Contratações
             </a>
           </div>
         </div>

@@ -1,26 +1,67 @@
 import { motion } from "motion/react";
+import { BookOpen, Drum, Heart, Leaf, Waves, Disc3 } from "lucide-react";
 import { getCurrentLanguage } from "@/lib/i18n";
 
 const pillars = [
   {
     t: "process.atmosphere",
-    d: "Every track starts with a room, a light, a feeling — before a single sound.",
+    d: {
+      "pt-BR":
+        "Cada som nasce de um ambiente: luz, temperatura e sensacao antes da primeira batida.",
+      en: "Every sound starts with a room, a light and a feeling before the first beat.",
+    },
+    Icon: Waves,
   },
-  { t: "process.groove", d: "Pocket-first. The body moves before the mind catches up." },
-  { t: "process.emotion", d: "Melody as a slow burn. Restraint as a tool." },
-  { t: "process.roots", d: "Rhythms, slang and soul carried from home into every set." },
-  { t: "process.percussion", d: "Live hands, wood, skin. Texture you can almost touch." },
-  { t: "process.storytelling", d: "A set is an arc — sunrise to peak to silence." },
+  {
+    t: "process.groove",
+    d: {
+      "pt-BR": "Fluido, paciente e feito para o corpo responder antes da mente explicar.",
+      en: "Fluid, patient and made for the body to answer before the mind explains.",
+    },
+    Icon: Disc3,
+  },
+  {
+    t: "process.emotion",
+    d: {
+      "pt-BR": "Harmonias que respiram, crescem devagar e deixam espaço para sentir.",
+      en: "Harmonies that breathe, grow slowly and leave space for feeling.",
+    },
+    Icon: Heart,
+  },
+  {
+    t: "process.roots",
+    d: {
+      "pt-BR": "Calor, sotaque ritmico e uma brasilidade elegante dentro da pista.",
+      en: "Warmth, rhythmic accent and elegant Brazilian identity inside the dancefloor.",
+    },
+    Icon: Leaf,
+  },
+  {
+    t: "process.percussion",
+    d: {
+      "pt-BR": "Mãos, madeira, pele e textura organica por baixo dos sintetizadores.",
+      en: "Hands, wood, skin and organic texture beneath the synthesizers.",
+    },
+    Icon: Drum,
+  },
+  {
+    t: "process.storytelling",
+    d: {
+      "pt-BR": "Sets que se revelam como capitulos, nao como uma simples playlist.",
+      en: "Sets that unfold like chapters, not like a simple playlist.",
+    },
+    Icon: BookOpen,
+  },
 ];
 
 const translations: Record<string, Record<string, string>> = {
   "pt-BR": {
     "process.atmosphere": "Atmosfera",
     "process.groove": "Groove",
-    "process.emotion": "Emocao",
+    "process.emotion": "Emoção",
     "process.roots": "Raizes Brasileiras",
-    "process.percussion": "Perceussao Organica",
-    "process.storytelling": "Contacao de Historias",
+    "process.percussion": "Percussao Organica",
+    "process.storytelling": "Narrativa",
   },
   en: {
     "process.atmosphere": "Atmosphere",
@@ -37,9 +78,14 @@ function getPillarTitle(key: string): string {
   return translations[lang]?.[key] || key;
 }
 
+function getPillarDescription(description: (typeof pillars)[number]["d"]) {
+  return description[getCurrentLanguage()] || description["pt-BR"];
+}
+
 export function Process() {
   return (
-    <section id="process" className="relative py-32 sm:py-40 px-6 sm:px-10">
+    <section id="process" className="relative px-6 py-28 sm:px-10 sm:py-36">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(0.74_0.2_42/0.08),transparent_48%)] pointer-events-none" />
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,15 +95,14 @@ export function Process() {
           className="max-w-3xl mb-20"
         >
           <span className="text-overline" data-i18n="process.overline">
-            04 / Process
+            04 / Processo Artístico
           </span>
-          <h2 className="text-display text-5xl sm:text-7xl mt-4">
-            Six pillars, one <span className="italic text-[var(--color-ember-soft)]">language</span>
-            .
+          <h2 className="text-display text-5xl sm:text-7xl mt-4" data-i18n="process.title">
+            Seis pilares de um som.
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/10">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pillars.map((p, i) => (
             <motion.div
               key={p.t}
@@ -65,14 +110,21 @@ export function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.8, delay: i * 0.07 }}
-              className="group relative bg-[oklch(0.09_0.012_40)] p-8 sm:p-10 min-h-[220px] flex flex-col justify-between hover:bg-[oklch(0.11_0.014_40)] transition-colors duration-500"
+              className="group relative min-h-[208px] overflow-hidden border border-white/10 bg-[oklch(0.075_0.01_40/0.72)] p-7 transition-colors duration-500 hover:border-[var(--color-ember)]/35 hover:bg-[oklch(0.1_0.014_40/0.86)] sm:p-8"
             >
-              <span className="text-overline">{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <h3 className="text-display text-3xl mb-3">{getPillarTitle(p.t)}</h3>
-                <p className="text-sm text-white/55 leading-relaxed">{p.d}</p>
+              <div className="flex items-start justify-between gap-6">
+                <span className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-[var(--color-ember)] transition group-hover:border-[var(--color-ember)]/45 group-hover:bg-[var(--color-ember)]/10">
+                  <p.Icon className="h-4 w-4" />
+                </span>
+                <span className="text-overline text-white/25">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
               </div>
-              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[var(--color-ember)]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="mt-8">
+                <h3 className="text-display text-3xl mb-3">{getPillarTitle(p.t)}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{getPillarDescription(p.d)}</p>
+              </div>
+              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[var(--color-ember)]/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
             </motion.div>
           ))}
         </div>

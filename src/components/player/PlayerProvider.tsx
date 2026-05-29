@@ -188,6 +188,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     w.bind(E.PAUSE, () => setIsPlaying(false));
     w.bind(E.FINISH, () => {
       setIsPlaying(false);
+      autoPlayNextRef.current = true;
       // Auto-advance to next track when current finishes
       setCurrentIndex((i) => (i + 1) % tracks.length);
     });

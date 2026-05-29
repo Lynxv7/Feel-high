@@ -62,7 +62,7 @@ export function Contact() {
           className="text-overline"
           data-i18n="contact.overline"
         >
-          05 / Contact
+          06 / Contato
         </motion.span>
         <motion.h2
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
@@ -71,9 +71,9 @@ export function Contact() {
           transition={{ duration: 1.2 }}
           className="text-display text-5xl sm:text-7xl md:text-8xl mt-6 leading-[0.9]"
         >
-          Let's create moments
+          Vamos criar momentos
           <br />
-          through <span className="italic text-[var(--color-ember-soft)]">music</span>.
+          através da <span className="italic text-[var(--color-ember-soft)]">música</span>.
         </motion.h2>
 
         <div className="mt-20 grid gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/10 text-left">
@@ -113,7 +113,7 @@ export function Contact() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-overline">Contato direto</p>
-                <h3 className="text-2xl sm:text-3xl font-medium mt-3">Fale com a Feel High</h3>
+                <h3 className="text-2xl sm:text-3xl font-medium mt-3">Fale com o Feel High</h3>
               </div>
               <ArrowUpRight className="h-6 w-6 text-[var(--color-ember)]" />
             </div>
