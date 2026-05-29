@@ -8,16 +8,22 @@ const livePillars = [
   {
     title: "Pista sofisticada",
     label: "Groove em movimento",
+    titleKey: "live.pillar.1.title",
+    labelKey: "live.pillar.1.label",
     image: liveFloor,
   },
   {
     title: "Calor de sunset",
-    label: "Energia organica",
+    label: "Energia orgânica",
+    titleKey: "live.pillar.2.title",
+    labelKey: "live.pillar.2.label",
     image: liveSunset,
   },
   {
     title: "Narrativa musical",
     label: "Atmosfera emocional",
+    titleKey: "live.pillar.3.title",
+    labelKey: "live.pillar.3.label",
     image: liveWarmth,
   },
 ];
@@ -38,9 +44,14 @@ export function Live() {
               05 / Live Experience
             </span>
             <h2 className="text-display text-5xl sm:text-7xl mt-4">
-              Onde ritmo, atmosfera e{" "}
-              <span className="italic text-[var(--color-ember-soft)]">movimento</span> se tornam um
-              só..
+              <span data-i18n="live.title.start">Onde groove, atmosfera e</span>{" "}
+              <span
+                className="italic text-[var(--color-ember-soft)]"
+                data-i18n="live.title.emphasis"
+              >
+                movimento
+              </span>{" "}
+              <span data-i18n="live.title.end">se tornam um só..</span>
             </h2>
           </motion.div>
           <motion.p
@@ -73,11 +84,16 @@ export function Live() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="absolute top-4 left-4 right-4 flex items-start justify-between gap-4">
-                <span className="text-overline">{item.label}</span>
+                <span className="text-overline" data-i18n={item.labelKey}>
+                  {item.label}
+                </span>
                 <ArrowUpRight className="h-5 w-5 flex-shrink-0 text-white/60 group-hover:text-[var(--color-ember)] group-hover:rotate-12 transition" />
               </div>
               <div className="absolute bottom-5 left-5 right-5">
-                <h3 className="text-display text-2xl sm:text-3xl leading-[0.95] break-words">
+                <h3
+                  className="text-display text-2xl sm:text-3xl leading-[0.95] break-words"
+                  data-i18n={item.titleKey}
+                >
                   {item.title}
                 </h3>
               </div>

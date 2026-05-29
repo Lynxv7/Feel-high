@@ -22,7 +22,7 @@ export function Sound() {
               02 / Discografia
             </span>
             <h2 className="text-display text-6xl sm:text-8xl mt-4">
-              Discografia
+              <span data-i18n="sound.title">Discografia</span>
               <span className="italic text-[var(--color-ember-soft)]">.</span>
             </h2>
           </div>

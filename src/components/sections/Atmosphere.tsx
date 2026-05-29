@@ -79,8 +79,14 @@ export function Atmosphere() {
             03 / Atmosfera
           </span>
           <h2 className="text-display text-5xl sm:text-7xl mt-4 max-w-3xl">
-            Luz, corpo e movimento em uma{" "}
-            <span className="italic text-[var(--color-ember-soft)]">atmosfera viva</span>.
+            <span data-i18n="atmosphere.title.start">Luz, corpo e movimento em uma</span>{" "}
+            <span
+              className="italic text-[var(--color-ember-soft)]"
+              data-i18n="atmosphere.title.emphasis"
+            >
+              atmosfera viva
+            </span>
+            <span data-i18n="atmosphere.title.end">.</span>
           </h2>
         </motion.div>
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, Instagram, Link, Mail, Youtube } from "lucide-react";
+import { getCurrentLanguage, translate } from "@/lib/i18n";
 
 const channels = [
   {
@@ -39,10 +40,16 @@ export function Contact() {
     event.preventDefault();
     if (!name.trim() || !phone.trim()) return;
 
-    const subject = `Contato pelo site - ${name.trim()}`;
-    const body = [`Nome: ${name.trim()}`, `Telefone: ${phone.trim()}`, "", message.trim()]
-      .filter(Boolean)
-      .join("\n");
+    const language = getCurrentLanguage();
+    const subject = translate("contact.email.subject", language).replace("{name}", name.trim());
+    const bodyParts = [
+      `${translate("contact.email.body.name", language)} ${name.trim()}`,
+      `${translate("contact.email.body.phone", language)} ${phone.trim()}`,
+    ];
+    if (message.trim()) {
+      bodyParts.push("", `${translate("contact.email.body.message", language)} ${message.trim()}`);
+    }
+    const body = bodyParts.join("\n");
 
     const mailto = `mailto:${emailTo}?subject=${encodeURIComponent(
       subject,
@@ -71,9 +78,16 @@ export function Contact() {
           transition={{ duration: 1.2 }}
           className="text-display text-5xl sm:text-7xl md:text-8xl mt-6 leading-[0.9]"
         >
-          Vamos criar momentos
+          <span data-i18n="contact.title.start">Vamos criar momentos</span>
           <br />
-          através da <span className="italic text-[var(--color-ember-soft)]">música</span>.
+          <span data-i18n="contact.title.middle">através da</span>{" "}
+          <span
+            className="italic text-[var(--color-ember-soft)]"
+            data-i18n="contact.title.emphasis"
+          >
+            música
+          </span>
+          <span data-i18n="contact.title.end">.</span>
         </motion.h2>
 
         <div className="mt-20 grid gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/10 text-left">
@@ -112,15 +126,24 @@ export function Contact() {
           >
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-overline">Contato direto</p>
-                <h3 className="text-2xl sm:text-3xl font-medium mt-3">Fale com o Feel High</h3>
+                <p className="text-overline" data-i18n="contact.form.overline">
+                  Contato direto
+                </p>
+                <h3
+                  className="text-2xl sm:text-3xl font-medium mt-3"
+                  data-i18n="contact.form.title"
+                >
+                  Fale com o Feel High
+                </h3>
               </div>
               <ArrowUpRight className="h-6 w-6 text-[var(--color-ember)]" />
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
               <label className="flex flex-col gap-2">
-                <span className="text-overline">Nome *</span>
+                <span className="text-overline" data-i18n="contact.form.nameLabel">
+                  Nome *
+                </span>
                 <input
                   type="text"
                   name="name"
@@ -128,11 +151,14 @@ export function Contact() {
                   onChange={(event) => setName(event.target.value)}
                   required
                   placeholder="Seu nome"
+                  data-i18n-placeholder="contact.form.namePlaceholder"
                   className="h-12 rounded-xl bg-white/5 border border-white/10 px-4 text-base text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[var(--color-ember)]/60"
                 />
               </label>
               <label className="flex flex-col gap-2">
-                <span className="text-overline">Telefone *</span>
+                <span className="text-overline" data-i18n="contact.form.phoneLabel">
+                  Telefone *
+                </span>
                 <input
                   type="tel"
                   name="phone"
@@ -140,30 +166,35 @@ export function Contact() {
                   onChange={(event) => setPhone(event.target.value)}
                   required
                   placeholder="(00) 00000-0000"
+                  data-i18n-placeholder="contact.form.phonePlaceholder"
                   className="h-12 rounded-xl bg-white/5 border border-white/10 px-4 text-base text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[var(--color-ember)]/60"
                 />
               </label>
             </div>
 
             <label className="flex flex-col gap-2">
-              <span className="text-overline">Mensagem</span>
+              <span className="text-overline" data-i18n="contact.form.messageLabel">
+                Mensagem
+              </span>
               <textarea
                 name="message"
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
                 placeholder="Conte como podemos ajudar"
+                data-i18n-placeholder="contact.form.messagePlaceholder"
                 rows={5}
                 className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-base text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[var(--color-ember)]/60"
               />
             </label>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <p className="text-sm text-white/50">
+              <p className="text-sm text-white/50" data-i18n="contact.form.helper">
                 Envio via seu app de email. Campos de nome e telefone sao obrigatorios.
               </p>
               <button
                 type="submit"
                 className="inline-flex items-center justify-center rounded-full border border-[var(--color-ember)]/60 bg-[oklch(0.18_0.03_45/0.7)] px-6 py-3 text-sm uppercase tracking-[0.32em] text-[var(--color-ember)] transition hover:border-[var(--color-ember)]"
+                data-i18n="contact.form.submit"
               >
                 Enviar
               </button>

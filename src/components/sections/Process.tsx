@@ -1,6 +1,9 @@
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { BookOpen, Drum, Heart, Leaf, Waves, Disc3 } from "lucide-react";
-import { getCurrentLanguage } from "@/lib/i18n";
+import { getCurrentLanguage, subscribeToLanguageChange } from "@/lib/i18n";
+
+type Language = "pt-BR" | "en";
 
 const pillars = [
   {
@@ -73,16 +76,19 @@ const translations: Record<string, Record<string, string>> = {
   },
 };
 
-function getPillarTitle(key: string): string {
-  const lang = getCurrentLanguage();
-  return translations[lang]?.[key] || key;
+function getPillarTitle(key: string, language: Language): string {
+  return translations[language]?.[key] || key;
 }
 
-function getPillarDescription(description: (typeof pillars)[number]["d"]) {
-  return description[getCurrentLanguage()] || description["pt-BR"];
+function getPillarDescription(description: (typeof pillars)[number]["d"], language: Language) {
+  return description[language] || description["pt-BR"];
 }
 
 export function Process() {
+  const [language, setLanguage] = useState<Language>(getCurrentLanguage());
+
+  useEffect(() => subscribeToLanguageChange(setLanguage), []);
+
   return (
     <section id="process" className="relative px-6 py-28 sm:px-10 sm:py-36">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(0.74_0.2_42/0.08),transparent_48%)] pointer-events-none" />
@@ -121,8 +127,10 @@ export function Process() {
                 </span>
               </div>
               <div className="mt-8">
-                <h3 className="text-display text-3xl mb-3">{getPillarTitle(p.t)}</h3>
-                <p className="text-sm text-white/50 leading-relaxed">{getPillarDescription(p.d)}</p>
+                <h3 className="text-display text-3xl mb-3">{getPillarTitle(p.t, language)}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  {getPillarDescription(p.d, language)}
+                </p>
               </div>
               <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[var(--color-ember)]/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
             </motion.div>

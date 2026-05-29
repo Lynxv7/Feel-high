@@ -20,11 +20,17 @@ const translations: Translations = {
     "hero.subtitle": "Música para pores do sol, pistas de dança e momentos que ficam com você.",
     "hero.scroll": "Role",
     "sound.overline": "02 / Discografia",
-    "sound.title": "Discografia.",
+    "sound.title": "Discografia",
     "sound.body":
       "A identidade vira som: faixas oficiais transmitidas direto do SoundCloud, organizadas como uma entrada no universo musical da FEEL HIGH.",
     "atmosphere.overline": "03 / Atmosfera",
-    "atmosphere.title": "Luz, corpo e movimento em uma atmosfera viva.",
+    "atmosphere.title.start": "Luz, corpo e movimento em uma",
+    "atmosphere.title.emphasis": "atmosfera viva",
+    "atmosphere.title.end": ".",
+    "artist.overline": "01 / O Artista",
+    "artist.title.start": "Uma identidade construída sobre",
+    "artist.title.emphasis": "groove",
+    "artist.title.end": ", atmosfera e calor brasileiro.",
     "process.overline": "04 / Processo Artístico",
     "process.title": "Seis pilares de um som.",
     "process.atmosphere": "Atmosfera",
@@ -34,11 +40,37 @@ const translations: Translations = {
     "process.percussion": "Percussão Orgânica",
     "process.storytelling": "Narrativa",
     "live.overline": "05 / Live Experience",
-    "live.title": "Onde groove, atmosfera e movimento se tornam um..",
+    "live.title.start": "Onde groove, atmosfera e",
+    "live.title.emphasis": "movimento",
+    "live.title.end": "se tornam um só..",
+    "live.pillar.1.label": "Groove em movimento",
+    "live.pillar.1.title": "Pista sofisticada",
+    "live.pillar.2.label": "Energia orgânica",
+    "live.pillar.2.title": "Calor de sunset",
+    "live.pillar.3.label": "Atmosfera emocional",
+    "live.pillar.3.title": "Narrativa musical",
     "live.description":
       "Uma experiência construída para ler o ambiente, elevar a energia e transformar cada transição em narrativa.",
     "contact.overline": "06 / Contato",
-    "contact.title": "Vamos criar momentos através da música.",
+    "contact.title.start": "Vamos criar momentos",
+    "contact.title.middle": "através da",
+    "contact.title.emphasis": "música",
+    "contact.title.end": ".",
+    "contact.form.overline": "Contato direto",
+    "contact.form.title": "Fale com o Feel High",
+    "contact.form.nameLabel": "Nome *",
+    "contact.form.phoneLabel": "Telefone *",
+    "contact.form.messageLabel": "Mensagem",
+    "contact.form.namePlaceholder": "Seu nome",
+    "contact.form.phonePlaceholder": "(00) 00000-0000",
+    "contact.form.messagePlaceholder": "Conte como podemos ajudar",
+    "contact.form.helper":
+      "Envio via seu app de email. Campos de nome e telefone sao obrigatorios.",
+    "contact.form.submit": "Enviar",
+    "contact.email.subject": "Contato pelo site - {name}",
+    "contact.email.body.name": "Nome:",
+    "contact.email.body.phone": "Telefone:",
+    "contact.email.body.message": "Mensagem:",
     "footer.genre":
       "Tech House · Melodic · Afro · Organic · Techno · House · Bass · Brazilian Soul.",
     "footer.sound": "Som",
@@ -59,11 +91,17 @@ const translations: Translations = {
     "hero.subtitle": "Music for sunsets, dancefloors and moments that stay with you.",
     "hero.scroll": "Scroll",
     "sound.overline": "02 / Discography",
-    "sound.title": "Discography.",
+    "sound.title": "Discography",
     "sound.body":
       "The identity becomes sound: official tracks streamed directly from SoundCloud and arranged as an entry into the FEEL HIGH universe.",
     "atmosphere.overline": "03 / Atmosphere",
-    "atmosphere.title": "Light, bodies and movement inside a living atmosphere.",
+    "atmosphere.title.start": "Light, bodies and movement inside a",
+    "atmosphere.title.emphasis": "living atmosphere",
+    "atmosphere.title.end": ".",
+    "artist.overline": "01 / The Artist",
+    "artist.title.start": "An identity built on",
+    "artist.title.emphasis": "groove",
+    "artist.title.end": ", atmosphere and Brazilian warmth.",
     "process.overline": "04 / Process",
     "process.title": "Six pillars of a sound.",
     "process.atmosphere": "Atmosphere",
@@ -73,11 +111,36 @@ const translations: Translations = {
     "process.percussion": "Organic Percussion",
     "process.storytelling": "Storytelling",
     "live.overline": "05 / Live Experience",
-    "live.title": "Where groove, atmosphere and movement become one..",
+    "live.title.start": "Where groove, atmosphere and",
+    "live.title.emphasis": "movement",
+    "live.title.end": "become one..",
+    "live.pillar.1.label": "Groove in motion",
+    "live.pillar.1.title": "Refined dancefloor",
+    "live.pillar.2.label": "Organic energy",
+    "live.pillar.2.title": "Sunset heat",
+    "live.pillar.3.label": "Emotional atmosphere",
+    "live.pillar.3.title": "Musical storytelling",
     "live.description":
       "An experience built to read the room, raise the energy and turn each transition into narrative.",
     "contact.overline": "06 / Contact",
-    "contact.title": "Let's create moments through music.",
+    "contact.title.start": "Let's create moments",
+    "contact.title.middle": "through",
+    "contact.title.emphasis": "music",
+    "contact.title.end": ".",
+    "contact.form.overline": "Direct contact",
+    "contact.form.title": "Talk to Feel High",
+    "contact.form.nameLabel": "Name *",
+    "contact.form.phoneLabel": "Phone *",
+    "contact.form.messageLabel": "Message",
+    "contact.form.namePlaceholder": "Your name",
+    "contact.form.phonePlaceholder": "+00 00000-0000",
+    "contact.form.messagePlaceholder": "Tell us how we can help",
+    "contact.form.helper": "Sent via your email app. Name and phone fields are required.",
+    "contact.form.submit": "Send",
+    "contact.email.subject": "Website contact - {name}",
+    "contact.email.body.name": "Name:",
+    "contact.email.body.phone": "Phone:",
+    "contact.email.body.message": "Message:",
     "footer.genre":
       "Tech House · Melodic · Afro · Organic · Techno · House · Bass · Brazilian Soul.",
     "footer.sound": "Sound",
@@ -108,13 +171,23 @@ export function applyTranslations(language: Language) {
   if (typeof document === "undefined") return;
   const dict = translations[language];
 
-  document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((node) => {
+  document.querySelectorAll<HTMLElement>("[data-i18n], [data-i18n-placeholder]").forEach((node) => {
     const key = node.dataset.i18n;
+    const year = String(new Date().getFullYear());
+    const resolve = (value: string) => value.replace("{year}", year);
+
+    const placeholderKey = node.dataset.i18nPlaceholder;
+    if (placeholderKey) {
+      const placeholderText = dict[placeholderKey];
+      if (placeholderText != null && "placeholder" in node) {
+        node.setAttribute("placeholder", resolve(placeholderText));
+      }
+    }
+
     if (!key) return;
     const text = dict[key];
     if (text == null) return;
-    const year = String(new Date().getFullYear());
-    const resolved = text.replace("{year}", year);
+    const resolved = resolve(text);
 
     if (node.dataset.i18nLetters === "true") {
       node.textContent = "";
@@ -137,6 +210,10 @@ export function applyTranslations(language: Language) {
 
     node.textContent = resolved;
   });
+}
+
+export function translate(key: string, language: Language = currentLanguage) {
+  return translations[language]?.[key] ?? key;
 }
 
 export function setLanguage(language: Language, persist = true) {

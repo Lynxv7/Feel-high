@@ -45,11 +45,18 @@ export function Artist() {
           transition={{ duration: 1, delay: 0.12 }}
           className="max-w-3xl"
         >
-          <span className="text-overline">01 / The Artist</span>
+          <span className="text-overline" data-i18n="artist.overline">
+            01 / The Artist
+          </span>
           <h2 className="mt-6 text-display text-5xl leading-[0.95] sm:text-7xl lg:text-8xl">
-            Uma identidade construída sobre{" "}
-            <span className="italic text-[var(--color-ember-soft)]">groove</span>, atmosfera e calor
-            brasileiro.
+            <span data-i18n="artist.title.start">Uma identidade construída sobre</span>{" "}
+            <span
+              className="italic text-[var(--color-ember-soft)]"
+              data-i18n="artist.title.emphasis"
+            >
+              groove
+            </span>
+            <span data-i18n="artist.title.end">, atmosfera e calor brasileiro.</span>
           </h2>
 
           <div className="mt-10 grid gap-5 border-l border-white/10 pl-6 text-base leading-8 text-white/62 sm:text-lg">
