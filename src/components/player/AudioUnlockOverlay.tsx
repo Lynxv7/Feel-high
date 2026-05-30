@@ -94,7 +94,7 @@ export function AudioUnlockOverlay() {
           setIsDismissing(true);
           p.requestStart(true);
         }}
-        className="group relative overflow-hidden rounded-full border border-[var(--color-ember)]/60 bg-[oklch(0.18_0.03_45/0.7)] px-6 py-3 text-sm uppercase tracking-[0.32em] text-[var(--color-ember)] transition hover:border-[var(--color-ember)]"
+        className="group relative max-w-[calc(100vw-2rem)] overflow-hidden rounded-full border border-[var(--color-ember)]/60 bg-[oklch(0.18_0.03_45/0.7)] px-5 py-3 text-xs uppercase tracking-[0.22em] text-[var(--color-ember)] transition hover:border-[var(--color-ember)] sm:px-6 sm:text-sm sm:tracking-[0.32em]"
         aria-label="Ativar som"
       >
         <span

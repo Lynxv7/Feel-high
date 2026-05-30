@@ -20,10 +20,10 @@ export function GlobalPlayer() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 120, opacity: 0 }}
           transition={{ type: "spring", stiffness: 240, damping: 28 }}
-          className="fixed inset-x-0 bottom-0 z-50 px-3 pb-3 sm:px-6 sm:pb-6"
+          className="fixed inset-x-0 bottom-0 z-50 px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] sm:px-6 sm:pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
         >
           <div className="mx-auto max-w-6xl">
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/60 backdrop-blur-2xl shadow-[0_20px_60px_-20px_oklch(0_0_0/0.8)]">
+            <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/70 backdrop-blur-2xl shadow-[0_20px_60px_-20px_oklch(0_0_0/0.8)] sm:rounded-2xl">
               <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.74_0.2_42/0.08)] via-transparent to-[oklch(0.74_0.2_42/0.08)] pointer-events-none" />
 
               {/* Progress bar */}
@@ -41,19 +41,21 @@ export function GlobalPlayer() {
                 />
               </button>
 
-              <div className="flex items-center gap-3 sm:gap-5 p-3 sm:p-4">
+              <div className="flex items-center gap-2 p-2.5 sm:gap-5 sm:p-4">
                 <motion.img
                   key={p.currentTrack.id}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   src={p.currentTrack.cover}
                   alt=""
-                  className="h-12 w-12 sm:h-14 sm:w-14 rounded-md object-cover flex-shrink-0"
+                  className="h-11 w-11 flex-shrink-0 rounded-md object-cover sm:h-14 sm:w-14"
                 />
 
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-2 truncate">
-                    <span className="text-sm font-medium truncate">{p.currentTrack.title}</span>
+                    <span className="truncate text-sm font-medium leading-tight">
+                      {p.currentTrack.title}
+                    </span>
                     <span className="hidden sm:inline text-xs text-white/40 truncate">
                       {getTrackSubtitle(p.currentTrack)}
                     </span>
@@ -67,18 +69,18 @@ export function GlobalPlayer() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 sm:gap-2">
+                <div className="flex shrink-0 items-center gap-0.5 sm:gap-2">
                   <button
                     onClick={p.prev}
                     aria-label="Previous"
-                    className="p-2 text-white/60 hover:text-white transition"
+                    className="hidden p-2 text-white/60 transition hover:text-white min-[380px]:block"
                   >
                     <SkipBack className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => p.toggle()}
                     aria-label={p.isPlaying ? "Pause" : "Play"}
-                    className="grid place-items-center h-10 w-10 rounded-full bg-white text-black hover:scale-105 active:scale-95 transition-transform"
+                    className="grid h-10 w-10 place-items-center rounded-full bg-white text-black transition-transform hover:scale-105 active:scale-95"
                   >
                     {p.isPlaying ? (
                       <Pause className="h-4 w-4 fill-current" />
@@ -89,7 +91,7 @@ export function GlobalPlayer() {
                   <button
                     onClick={p.next}
                     aria-label="Next"
-                    className="p-2 text-white/60 hover:text-white transition"
+                    className="hidden p-2 text-white/60 transition hover:text-white min-[380px]:block"
                   >
                     <SkipForward className="h-4 w-4" />
                   </button>

@@ -1,10 +1,10 @@
 export function Footer() {
   return (
-    <footer className="relative px-6 sm:px-10 pb-32 pt-20 border-t border-white/5">
+    <footer className="relative border-t border-white/5 px-4 pb-[calc(8rem+env(safe-area-inset-bottom))] pt-14 sm:px-8 sm:pb-32 sm:pt-20 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end md:gap-12">
           <div>
-            <h3 className="text-display text-6xl sm:text-8xl leading-none">
+            <h3 className="text-display text-5xl leading-none min-[380px]:text-6xl sm:text-8xl">
               FEEL <span className="text-[var(--color-ember)]">HIGH</span>
             </h3>
             <p
@@ -14,7 +14,7 @@ export function Footer() {
               Tech House · Melodic · Afro · Organic · Techno · House · Bass · Brazilian Soul.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm sm:gap-x-12">
             <a
               href="https://soundcloud.com/feelhighmusic"
               target="_blank"
@@ -50,7 +50,7 @@ export function Footer() {
             </a>
           </div>
         </div>
-        <div className="mt-20 flex flex-col sm:flex-row justify-between gap-3 text-overline">
+        <div className="mt-12 flex flex-col justify-between gap-3 text-overline sm:mt-20 sm:flex-row">
           <span data-i18n="footer.rights">© {new Date().getFullYear()} FEEL HIGH</span>
           <span data-i18n="footer.tagline">Guiado por sentimentos · Mundial</span>
         </div>

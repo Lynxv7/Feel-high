@@ -58,7 +58,10 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-32 sm:py-48 px-6 sm:px-10 overflow-hidden">
+    <section
+      id="contact"
+      className="relative overflow-hidden px-4 py-20 sm:px-8 sm:py-32 lg:px-10 lg:py-48"
+    >
       <div className="absolute inset-0 bg-glow-ember opacity-60 pointer-events-none" />
       <div className="relative mx-auto max-w-5xl text-center">
         <motion.span
@@ -76,7 +79,7 @@ export function Contact() {
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
-          className="text-display text-5xl sm:text-7xl md:text-8xl mt-6 leading-[0.9]"
+          className="mt-5 text-display text-4xl leading-[0.96] min-[380px]:text-5xl sm:mt-6 sm:text-7xl sm:leading-[0.92] md:text-8xl"
         >
           <span data-i18n="contact.title.start">Vamos criar momentos</span>
           <br />
@@ -90,8 +93,8 @@ export function Contact() {
           <span data-i18n="contact.title.end">.</span>
         </motion.h2>
 
-        <div className="mt-20 grid gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/10 text-left">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px">
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left sm:mt-16 lg:mt-20">
+          <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-4">
             {channels.map((c, i) => (
               <motion.a
                 key={c.label}
@@ -102,14 +105,16 @@ export function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: i * 0.08 }}
-                className="group relative bg-[oklch(0.09_0.012_40)] hover:bg-[oklch(0.12_0.014_40)] transition-colors p-8 flex flex-col gap-6"
+                className="group relative flex flex-col gap-5 bg-[oklch(0.09_0.012_40)] p-5 transition-colors hover:bg-[oklch(0.12_0.014_40)] sm:p-7 lg:p-8"
               >
                 <span className="text-overline flex items-center gap-2">
                   <c.Icon className="h-4 w-4 text-white/50" aria-hidden="true" />
                   {c.label}
                 </span>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-lg sm:text-xl font-medium truncate">{c.value}</span>
+                  <span className="min-w-0 truncate text-base font-medium sm:text-lg xl:text-xl">
+                    {c.value}
+                  </span>
                   <ArrowUpRight className="h-5 w-5 text-white/40 group-hover:text-[var(--color-ember)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
                 </div>
               </motion.a>
@@ -122,15 +127,15 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="grid gap-6 bg-[oklch(0.09_0.012_40)] p-8 sm:p-10"
+            className="grid gap-6 bg-[oklch(0.09_0.012_40)] p-5 sm:p-8 lg:p-10"
           >
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-overline" data-i18n="contact.form.overline">
                   Contato direto
                 </p>
                 <h3
-                  className="text-2xl sm:text-3xl font-medium mt-3"
+                  className="mt-3 text-2xl font-medium sm:text-3xl"
                   data-i18n="contact.form.title"
                 >
                   Fale com o Feel High
@@ -188,12 +193,12 @@ export function Contact() {
             </label>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <p className="text-sm text-white/50" data-i18n="contact.form.helper">
-                Envio via seu app de email. Campos de nome e telefone sao obrigatorios.
+              <p className="text-sm leading-6 text-white/55" data-i18n="contact.form.helper">
+                Envio via seu app de email. Campos de nome e telefone são obrigatórios.
               </p>
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-full border border-[var(--color-ember)]/60 bg-[oklch(0.18_0.03_45/0.7)] px-6 py-3 text-sm uppercase tracking-[0.32em] text-[var(--color-ember)] transition hover:border-[var(--color-ember)]"
+                className="inline-flex w-full items-center justify-center rounded-full border border-[var(--color-ember)]/60 bg-[oklch(0.18_0.03_45/0.7)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[var(--color-ember)] transition hover:border-[var(--color-ember)] sm:w-auto sm:tracking-[0.32em]"
                 data-i18n="contact.form.submit"
               >
                 Enviar

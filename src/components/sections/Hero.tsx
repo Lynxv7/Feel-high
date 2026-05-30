@@ -11,7 +11,7 @@ export function Hero() {
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   return (
-    <section ref={ref} id="top" className="relative min-h-svh overflow-hidden">
+    <section ref={ref} id="top" className="relative min-h-[100svh] overflow-hidden">
       {/* Background image with parallax */}
       <motion.div style={{ y, scale }} className="absolute inset-0">
         <img
@@ -25,13 +25,13 @@ export function Hero() {
 
       <motion.div
         style={{ opacity, y: titleY }}
-        className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 text-center"
+        className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-4 pb-20 pt-24 text-center sm:px-6"
       >
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-overline mb-8"
+          className="mb-6 text-overline sm:mb-8"
           data-i18n="hero.tagline"
         >
           Um projeto sonoro · Mundial
@@ -41,7 +41,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-display text-[18vw] sm:text-[14vw] md:text-[12rem] leading-[0.85]"
+          className="text-display text-7xl leading-[0.86] min-[380px]:text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem]"
         >
           FEEL
           <br />
@@ -52,7 +52,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="mt-10 max-w-md text-sm sm:text-base text-white/60 leading-relaxed"
+          className="mt-7 max-w-sm text-sm leading-relaxed text-white/65 sm:mt-10 sm:max-w-md sm:text-base"
           data-i18n="hero.subtitle"
         >
           Música para pores do sol, pistas de dança e momentos que ficam com você.
@@ -63,7 +63,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.6, duration: 1 }}
-          className="absolute bottom-10 inset-x-0 mx-auto w-fit text-overline flex flex-col items-center gap-3 text-white/40"
+          className="absolute inset-x-0 bottom-6 mx-auto flex w-fit flex-col items-center gap-2 text-overline text-white/40 sm:bottom-10 sm:gap-3"
         >
           <span data-i18n="hero.scroll">Role</span>
           <motion.span

@@ -8,13 +8,48 @@ import img6 from "@/assets/portrait-amber.png";
 import img7 from "@/assets/hero-sunrise.png";
 
 const shots = [
-  { src: img1, caption: "Smoke · Strobes", ratio: "aspect-[3/4]", width: "w-[68vw] sm:w-86" },
-  { src: img7, caption: "Sunrise Set", ratio: "aspect-[4/5]", width: "w-[74vw] sm:w-96" },
-  { src: img3, caption: "Mainstage · Pixels", ratio: "aspect-[3/4]", width: "w-[68vw] sm:w-86" },
-  { src: img4, caption: "Studio Glow", ratio: "aspect-[4/5]", width: "w-[74vw] sm:w-96" },
-  { src: img2, caption: "Wedding Floor", ratio: "aspect-[3/4]", width: "w-[68vw] sm:w-86" },
-  { src: img5, caption: "Off Stage", ratio: "aspect-[4/5]", width: "w-[74vw] sm:w-96" },
-  { src: img6, caption: "Amber Hours", ratio: "aspect-[3/4]", width: "w-[68vw] sm:w-86" },
+  {
+    src: img1,
+    caption: "Smoke · Strobes",
+    ratio: "aspect-[3/4]",
+    width: "w-[70vw] max-w-[270px] sm:w-86 sm:max-w-none",
+  },
+  {
+    src: img7,
+    caption: "Sunrise Set",
+    ratio: "aspect-[4/5]",
+    width: "w-[76vw] max-w-[300px] sm:w-96 sm:max-w-none",
+  },
+  {
+    src: img3,
+    caption: "Mainstage · Pixels",
+    ratio: "aspect-[3/4]",
+    width: "w-[70vw] max-w-[270px] sm:w-86 sm:max-w-none",
+  },
+  {
+    src: img4,
+    caption: "Studio Glow",
+    ratio: "aspect-[4/5]",
+    width: "w-[76vw] max-w-[300px] sm:w-96 sm:max-w-none",
+  },
+  {
+    src: img2,
+    caption: "Wedding Floor",
+    ratio: "aspect-[3/4]",
+    width: "w-[70vw] max-w-[270px] sm:w-86 sm:max-w-none",
+  },
+  {
+    src: img5,
+    caption: "Off Stage",
+    ratio: "aspect-[4/5]",
+    width: "w-[76vw] max-w-[300px] sm:w-96 sm:max-w-none",
+  },
+  {
+    src: img6,
+    caption: "Amber Hours",
+    ratio: "aspect-[3/4]",
+    width: "w-[70vw] max-w-[270px] sm:w-86 sm:max-w-none",
+  },
 ];
 
 const upperRow = shots;
@@ -31,9 +66,9 @@ function GalleryRow({
   const frames = [...items, ...items];
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative max-w-full overflow-hidden ${className}`}>
       <motion.div
-        className="flex w-max gap-5 px-6 sm:gap-7 sm:px-10"
+        className="flex w-max max-w-none gap-4 px-4 sm:gap-7 sm:px-10"
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration, ease: "linear", repeat: Infinity }}
       >
@@ -54,7 +89,7 @@ function GalleryRow({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,oklch(0.74_0.2_42/0.16),transparent_58%)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <figcaption className="absolute bottom-4 left-4 text-overline text-white/55 transition group-hover:text-white/80">
+            <figcaption className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] truncate text-overline text-white/55 transition group-hover:text-white/80">
               {shot.caption}
             </figcaption>
           </motion.figure>
@@ -66,9 +101,9 @@ function GalleryRow({
 
 export function Atmosphere() {
   return (
-    <section id="atmosphere" className="relative overflow-hidden py-32 sm:py-40">
+    <section id="atmosphere" className="relative overflow-hidden py-20 sm:py-28 lg:py-40">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,oklch(0.74_0.2_42/0.1),transparent_50%)] pointer-events-none" />
-      <div className="relative mx-auto mb-16 max-w-7xl px-6 sm:px-10">
+      <div className="relative mx-auto mb-10 max-w-7xl px-4 sm:mb-16 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +113,7 @@ export function Atmosphere() {
           <span className="text-overline" data-i18n="atmosphere.overline">
             03 / Atmosfera
           </span>
-          <h2 className="text-display text-5xl sm:text-7xl mt-4 max-w-3xl">
+          <h2 className="mt-4 max-w-3xl text-display text-4xl leading-[0.98] min-[380px]:text-5xl sm:text-7xl">
             <span data-i18n="atmosphere.title.start">Luz, corpo e movimento em uma</span>{" "}
             <span
               className="italic text-[var(--color-ember-soft)]"
@@ -92,8 +127,8 @@ export function Atmosphere() {
       </div>
 
       <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent sm:w-40" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent sm:w-40" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent sm:w-40" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent sm:w-40" />
         <GalleryRow items={upperRow} duration={76} />
       </div>
     </section>

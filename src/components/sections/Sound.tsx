@@ -7,7 +7,7 @@ import { getTrackSubtitle } from "@/lib/tracks";
 export function Sound() {
   const p = usePlayer();
   return (
-    <section id="sound" className="relative px-6 py-28 sm:px-10 sm:py-36">
+    <section id="sound" className="relative px-4 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[oklch(0.1_0.018_40)] to-transparent pointer-events-none" />
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -15,18 +15,18 @@ export function Sound() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1 }}
-          className="flex flex-wrap items-end justify-between gap-8 mb-16"
+          className="mb-10 flex flex-col items-start justify-between gap-6 sm:mb-14 lg:mb-16 lg:flex-row lg:items-end"
         >
           <div>
             <span className="text-overline" data-i18n="sound.overline">
               02 / Discografia
             </span>
-            <h2 className="text-display text-6xl sm:text-8xl mt-4">
+            <h2 className="mt-4 text-display text-5xl min-[380px]:text-6xl sm:text-8xl">
               <span data-i18n="sound.title">Discografia</span>
               <span className="italic text-[var(--color-ember-soft)]">.</span>
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-7 text-white/50">
+          <p className="max-w-md text-sm leading-7 text-white/55">
             <span data-i18n="sound.body">
               A identidade vira som: faixas oficiais transmitidas direto do SoundCloud, organizadas
               como uma entrada no universo musical do FEEL HIGH.
@@ -47,13 +47,13 @@ export function Sound() {
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.8, delay: i * 0.08 }}
-                className={`group relative text-left rounded-2xl overflow-hidden border transition-all duration-500 ${
+                className={`group relative overflow-hidden rounded-xl border text-left transition-all duration-500 sm:rounded-2xl ${
                   isCurrent
                     ? "border-[var(--color-ember)]/50 shadow-[0_0_60px_-15px_var(--color-ember)]"
                     : "border-white/10 hover:border-white/25"
                 }`}
               >
-                <div className="relative aspect-[4/5] overflow-hidden">
+                <div className="relative aspect-[1/1.12] overflow-hidden sm:aspect-[4/5]">
                   <img
                     src={t.cover}
                     alt={t.title}
@@ -68,7 +68,7 @@ export function Sound() {
 
                   <div className="absolute top-4 right-4">
                     <div
-                      className={`grid place-items-center h-12 w-12 rounded-full backdrop-blur-md border transition-all ${
+                      className={`grid h-11 w-11 place-items-center rounded-full border backdrop-blur-md transition-all sm:h-12 sm:w-12 ${
                         isCurrent
                           ? "bg-[var(--color-ember)] border-[var(--color-ember)] text-black"
                           : "bg-black/40 border-white/20 text-white group-hover:bg-white group-hover:text-black"
@@ -82,13 +82,13 @@ export function Sound() {
                     </div>
                   </div>
 
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <div className="flex items-center gap-2 text-overline mb-3">
+                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                    <div className="mb-3 flex items-center gap-2 text-overline">
                       <span>{String(i + 1).padStart(2, "0")}</span>
                       <span className="h-px flex-1 bg-white/20" />
                       <span>{getTrackSubtitle(t)}</span>
                     </div>
-                    <h3 className="text-display text-2xl sm:text-3xl leading-[0.95] mb-3 break-words">
+                    <h3 className="mb-3 break-words text-display text-2xl leading-[0.95] sm:text-3xl">
                       {t.title}
                     </h3>
                     <div className="h-6">

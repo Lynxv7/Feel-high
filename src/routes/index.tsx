@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <PlayerProvider>
-      <main className="grain relative min-h-screen bg-background text-foreground overflow-x-hidden">
+      <main className="grain relative min-h-screen overflow-x-hidden bg-background text-foreground">
         <Nav />
         <Hero />
         <Artist />
@@ -32,7 +32,7 @@ function Index() {
         <Footer />
         <ScrollSoundtrack />
         <GlobalPlayer />
-        <div className="h-32" aria-hidden />
+        <div className="h-[calc(7rem+env(safe-area-inset-bottom))] sm:h-32" aria-hidden />
       </main>
       <AudioUnlockOverlay />
     </PlayerProvider>

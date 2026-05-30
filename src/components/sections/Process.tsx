@@ -10,7 +10,7 @@ const pillars = [
     t: "process.atmosphere",
     d: {
       "pt-BR":
-        "Cada som nasce de um ambiente: luz, temperatura e sensacao antes da primeira batida.",
+        "Cada som nasce de um ambiente: luz, temperatura e sensação antes da primeira batida.",
       en: "Every sound starts with a room, a light and a feeling before the first beat.",
     },
     Icon: Waves,
@@ -34,7 +34,7 @@ const pillars = [
   {
     t: "process.roots",
     d: {
-      "pt-BR": "Calor, sotaque ritmico e uma brasilidade elegante dentro da pista.",
+      "pt-BR": "Calor, sotaque rítmico e brasilidade elegante dentro da pista.",
       en: "Warmth, rhythmic accent and elegant Brazilian identity inside the dancefloor.",
     },
     Icon: Leaf,
@@ -42,7 +42,7 @@ const pillars = [
   {
     t: "process.percussion",
     d: {
-      "pt-BR": "Mãos, madeira, pele e textura organica por baixo dos sintetizadores.",
+      "pt-BR": "Mãos, madeira, pele e textura orgânica por baixo dos sintetizadores.",
       en: "Hands, wood, skin and organic texture beneath the synthesizers.",
     },
     Icon: Drum,
@@ -50,7 +50,7 @@ const pillars = [
   {
     t: "process.storytelling",
     d: {
-      "pt-BR": "Sets que se revelam como capitulos, nao como uma simples playlist.",
+      "pt-BR": "Sets que se revelam como capítulos, não como uma simples playlist.",
       en: "Sets that unfold like chapters, not like a simple playlist.",
     },
     Icon: BookOpen,
@@ -62,8 +62,8 @@ const translations: Record<string, Record<string, string>> = {
     "process.atmosphere": "Atmosfera",
     "process.groove": "Groove",
     "process.emotion": "Emoção",
-    "process.roots": "Raizes Brasileiras",
-    "process.percussion": "Percussao Organica",
+    "process.roots": "Brasilidade",
+    "process.percussion": "Percussão Orgânica",
     "process.storytelling": "Narrativa",
   },
   en: {
@@ -90,7 +90,7 @@ export function Process() {
   useEffect(() => subscribeToLanguageChange(setLanguage), []);
 
   return (
-    <section id="process" className="relative px-6 py-28 sm:px-10 sm:py-36">
+    <section id="process" className="relative px-4 py-20 sm:px-8 sm:py-28 lg:px-10 lg:py-36">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(0.74_0.2_42/0.08),transparent_48%)] pointer-events-none" />
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -98,13 +98,16 @@ export function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="max-w-3xl mb-20"
+          className="mb-10 max-w-3xl sm:mb-16 lg:mb-20"
         >
           <span className="text-overline" data-i18n="process.overline">
-            04 / Processo Artístico
+            04 / Estilo Feel High
           </span>
-          <h2 className="text-display text-5xl sm:text-7xl mt-4" data-i18n="process.title">
-            Seis pilares de um som.
+          <h2
+            className="mt-4 text-display text-4xl leading-[0.98] min-[380px]:text-5xl sm:text-7xl"
+            data-i18n="process.title"
+          >
+            Os pilares do estilo Feel High.
           </h2>
         </motion.div>
 
@@ -116,7 +119,7 @@ export function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.8, delay: i * 0.07 }}
-              className="group relative min-h-[208px] overflow-hidden border border-white/10 bg-[oklch(0.075_0.01_40/0.72)] p-7 transition-colors duration-500 hover:border-[var(--color-ember)]/35 hover:bg-[oklch(0.1_0.014_40/0.86)] sm:p-8"
+              className="group relative min-h-[184px] overflow-hidden border border-white/10 bg-[oklch(0.075_0.01_40/0.72)] p-5 transition-colors duration-500 hover:border-[var(--color-ember)]/35 hover:bg-[oklch(0.1_0.014_40/0.86)] sm:min-h-[208px] sm:p-8"
             >
               <div className="flex items-start justify-between gap-6">
                 <span className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-[var(--color-ember)] transition group-hover:border-[var(--color-ember)]/45 group-hover:bg-[var(--color-ember)]/10">
@@ -126,8 +129,10 @@ export function Process() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
-              <div className="mt-8">
-                <h3 className="text-display text-3xl mb-3">{getPillarTitle(p.t, language)}</h3>
+              <div className="mt-7 sm:mt-8">
+                <h3 className="mb-3 text-display text-2xl sm:text-3xl">
+                  {getPillarTitle(p.t, language)}
+                </h3>
                 <p className="text-sm text-white/50 leading-relaxed">
                   {getPillarDescription(p.d, language)}
                 </p>
